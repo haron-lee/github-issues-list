@@ -17,6 +17,7 @@ const Home: FC = () => {
       user: issue.user,
       comments: issue.comments,
       body: issue.body,
+      image: issue.user.avatar_url,
     }));
     setIssues(newIssues);
   };
@@ -44,6 +45,12 @@ const MainLayout = styled.main`
   height: 700px;
   overflow: auto;
   padding: 10px 0;
+
+  ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+  }
 
   &::-webkit-scrollbar {
     width: 3px;
