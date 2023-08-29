@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 
 export const CommonIssueItem = css`
   border-bottom: 1px solid var(--gray-800);
-  padding: 40px 0;
+  padding: 20px 0;
   padding-right: 20px;
 `;
 

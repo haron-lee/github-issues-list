@@ -51,7 +51,7 @@ const MainLayout = styled.main`
 
 const IssueTitle = styled.li`
   ${CommonIssueItem}
-
+  padding: 0px 20px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
