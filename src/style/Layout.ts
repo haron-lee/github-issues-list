@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const LayoutStyle = css`
-  max-width: 700px;
+  width: 700px;
   position: absolute;
   top: 50%;
   left: 50%;

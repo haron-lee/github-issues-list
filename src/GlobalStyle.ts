@@ -1,8 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
-  ${reset}
 
   :root {
     --dark-bg: #23272a;
@@ -43,6 +41,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
   }
+
 `;
 
 export default GlobalStyle;
