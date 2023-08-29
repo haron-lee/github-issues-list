@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import { css } from 'styled-components';
 
 export const CommonIssueItem = css`
   border-bottom: 1px solid var(--gray-800);
