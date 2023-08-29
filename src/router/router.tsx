@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import App from 'App';
 import Home from 'pages/Home';
 import Detail from 'pages/Detail';
+import NotFound from 'pages/NotFound';
 
 const router = createBrowserRouter([
   {
@@ -13,10 +14,14 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/:id',
+        path: '/detail/:id', // 수정된 경로
         element: <Detail />,
       },
     ],
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   },
 ]);
 
