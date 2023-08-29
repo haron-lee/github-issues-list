@@ -1,11 +1,8 @@
 import React from 'react';
+import IssueDetail from 'components/IssueDetail';
 
 const Detail: React.FC = () => {
-  return (
-    <>
-      <div>Detail</div>
-    </>
-  );
+  return <IssueDetail />;
 };
 
 export default Detail;
