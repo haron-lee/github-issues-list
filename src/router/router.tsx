@@ -14,7 +14,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/detail/:id', // 수정된 경로
+        path: '/detail/:id',
         element: <Detail />,
       },
     ],

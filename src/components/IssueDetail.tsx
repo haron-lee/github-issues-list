@@ -33,7 +33,6 @@ const IssueDetail: React.FC = () => {
 };
 
 const MainLayout = styled.main`
-  height: 700px;
   overflow-x: hidden;
   overflow-y: auto;
   padding: 10px 0;
