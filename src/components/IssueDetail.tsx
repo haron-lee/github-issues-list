@@ -6,7 +6,6 @@ import { CommonIssueItem, CommonTitleLayout } from 'style/Common';
 
 const IssueDetail: React.FC = () => {
   const { state } = useLocation();
-  console.log('🚀state', state);
 
   return (
     <MainLayout>

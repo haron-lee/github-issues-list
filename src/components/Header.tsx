@@ -1,10 +1,11 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import { OWNER, REPO } from 'utils/constants';
 
 const header = () => {
   return (
     <Title>
-      <h1>facebook/react</h1>
+      <h1>{`${OWNER}/${REPO}`}</h1>
     </Title>
   );
 };
