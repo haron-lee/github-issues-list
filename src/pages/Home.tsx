@@ -1,29 +1,54 @@
 import { FC, useEffect, useState } from 'react';
 import { styled } from 'styled-components';
-import getOctokit from 'api/octokit';
+import useOctokit from 'api/useOctokit';
 import IssueItem from 'components/IssueItem';
 import { issueProps } from 'type';
+import IssueSkeleton from 'components/skeleton/issueSkeleton';
 
 const Home: FC = () => {
+  const { getOctokit, isLoading } = useOctokit();
   const [issues, setIssues] = useState<issueProps[]>([]);
+  console.log('🚀  issues:', issues);
+  const [currentPage, setCurrentPage] = useState(0);
+  console.log('🚀  currentPage:', currentPage);
+  let debounceTimeout: NodeJS.Timeout;
 
-  const getIssue = async () => {
-    const issues = await getOctokit(1);
-    const newIssues: issueProps[] = issues?.map((issue: issueProps) => ({
-      id: issue.id,
-      number: issue.number,
-      title: issue.title,
-      created_at: issue.created_at,
-      user: issue.user,
-      comments: issue.comments,
-      body: issue.body,
-      image: issue.user.avatar_url,
-    }));
-    setIssues(newIssues);
+  const handleScroll = () => {
+    if (debounceTimeout) {
+      clearTimeout(debounceTimeout);
+    }
+
+    debounceTimeout = setTimeout(() => {
+      const scrolledToBottom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight;
+
+      if (scrolledToBottom) {
+        setCurrentPage((prevPage) => prevPage + 1);
+      }
+    }, 300);
   };
 
   useEffect(() => {
-    getIssue();
+    if (currentPage === 0) {
+      setCurrentPage(1);
+      return;
+    } else {
+      const getIssuesData = async () => {
+        const issuesData = await getOctokit(currentPage);
+        console.log('몇번실행?');
+        if (issuesData) {
+          setIssues((prevIssues) => [...prevIssues, ...issuesData]);
+        }
+      };
+      getIssuesData();
+    }
+  }, [currentPage]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (
@@ -36,13 +61,13 @@ const Home: FC = () => {
             Ad={index >= 3 && (index - 3) % 4 === 0}
           />
         ))}
+        {isLoading && <IssueSkeleton />}
       </ul>
     </MainLayout>
   );
 };
 
 const MainLayout = styled.main`
-  height: 700px;
   overflow: auto;
   padding: 10px 0;
 
@@ -50,16 +75,6 @@ const MainLayout = styled.main`
     list-style: none;
     margin: 0px;
     padding: 0px;
-  }
-
-  &::-webkit-scrollbar {
-    width: 3px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    height: 30%;
-    background: var(--primary);
-    border-radius: 10px;
   }
 `;
 
