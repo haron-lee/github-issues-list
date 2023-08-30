@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import useOctokit from 'api/useOctokit';
-import IssueItem from 'components/IssueItem';
+import IssueItem from 'components/issueItem';
 import { issueProps } from 'type';
 import IssueSkeleton from 'components/skeleton/issueSkeleton';
 
