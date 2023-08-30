@@ -8,9 +8,7 @@ import IssueSkeleton from 'components/skeleton/issueSkeleton';
 const Home: FC = () => {
   const { getOctokit, isLoading } = useOctokit();
   const [issues, setIssues] = useState<issueProps[]>([]);
-  console.log('🚀  issues:', issues);
   const [currentPage, setCurrentPage] = useState(0);
-  console.log('🚀  currentPage:', currentPage);
   let debounceTimeout: NodeJS.Timeout;
 
   const handleScroll = () => {
@@ -42,6 +40,7 @@ const Home: FC = () => {
       };
       getIssuesData();
     }
+    // eslint-disable-next-line
   }, [currentPage]);
 
   useEffect(() => {
@@ -49,6 +48,7 @@ const Home: FC = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
+    // eslint-disable-next-line
   }, []);
 
   return (
