@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Octokit } from 'octokit';
-import { issueProps } from 'type';
+import { OWNER, REPO } from 'utils/constants';
 
 const useOctokit = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const getOctokit = async (pageNum: number) => {
+  const getIssueData = async (pageNum: number) => {
     setIsLoading(true);
 
     const octokit = new Octokit({
@@ -13,39 +13,22 @@ const useOctokit = () => {
     });
 
     try {
-      const { data: issueData } = await octokit.request(
-        `Get /repos/facebook/react/issues?page=${pageNum}&sort=comments`,
-        {
-          headers: {
-            'X-GitHub-Api-Version': '2022-11-28',
-          },
-        }
-      );
+      const { data: issueData } = await octokit.rest.issues.listForRepo({
+        owner: OWNER,
+        repo: REPO,
+        page: pageNum,
+        sort: 'comments',
+      });
 
-      if (issueData) {
-        const newIssueData: issueProps[] = issueData.map(
-          (issue: issueProps) => ({
-            id: issue.id,
-            number: issue.number,
-            title: issue.title,
-            created_at: issue.created_at,
-            user: issue.user,
-            comments: issue.comments,
-            body: issue.body,
-            image: issue.user.avatar_url,
-          })
-        );
-
-        setIsLoading(false);
-        return newIssueData;
-      }
+      setIsLoading(false);
+      return issueData;
     } catch (error) {
       console.error('Error fetching data:', error);
       setIsLoading(false);
     }
   };
 
-  return { getOctokit, isLoading };
+  return { getIssueData, isLoading };
 };
 
 export default useOctokit;

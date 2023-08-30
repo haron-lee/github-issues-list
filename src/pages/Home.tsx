@@ -6,7 +6,7 @@ import { issueProps } from 'type';
 import IssueSkeleton from 'components/skeleton/issueSkeleton';
 
 const Home: FC = () => {
-  const { getOctokit, isLoading } = useOctokit();
+  const { getIssueData, isLoading } = useOctokit();
   const [issues, setIssues] = useState<issueProps[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   let debounceTimeout: NodeJS.Timeout;
@@ -28,10 +28,12 @@ const Home: FC = () => {
 
   useEffect(() => {
     const getIssuesData = async () => {
-      const issuesData = await getOctokit(currentPage);
-      console.log('몇번실행?');
-      if (issuesData) {
-        setIssues((prevIssues) => [...prevIssues, ...issuesData]);
+      const issuesData = await getIssueData(currentPage);
+      if (Array.isArray(issuesData)) {
+        setIssues((prevIssues) => [
+          ...prevIssues,
+          ...(issuesData as issueProps[]),
+        ]);
       }
     };
     getIssuesData();
