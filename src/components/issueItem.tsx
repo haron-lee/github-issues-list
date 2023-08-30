@@ -28,7 +28,7 @@ const IssueItem: FC<IssueItemProps> = ({ issue, Ad }) => {
               <strong>{issue.number}</strong> {issue.title}
             </h2>
             <p>
-              작성자:{issue.user.login}, 작성일: {issue.created_at}
+              작성자: {issue.user.login}, 작성일: {issue.created_at}
             </p>
           </IssueTitleLayout>
           <p>{issue.comments}</p>
