@@ -22,7 +22,7 @@ const IssueItem: FC<IssueItemProps> = ({ issue, Ad }) => {
   return (
     <>
       <IssueItemLayout>
-        <IssueItemLink to={'/detail/' + issue.id} state={issue}>
+        <IssueItemLink to={'/detail/' + issue.number} state={issue}>
           <IssueTitleLayout>
             <h2>
               <strong>{issue.number}</strong> {issue.title}
